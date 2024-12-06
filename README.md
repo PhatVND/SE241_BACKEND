@@ -25,7 +25,7 @@ This project aims at providing a solution for HCMUT's student needs for printing
 1. Install dependencies:
    - Window **_command prompt_**
    ```cmd
-   init.cmd
+   npm install express
    ```
    ```
 ### Usage
