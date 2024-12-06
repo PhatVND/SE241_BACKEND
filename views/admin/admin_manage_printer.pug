@@ -1,0 +1,111 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(
+      content="IE=edge" 
+      http-equiv="X-UA-Compatible"
+      )
+    meta(
+      content="width=device-width, initial-scale=1.0" 
+      name="viewport"
+      )
+    link(
+      href="/css/admin_manage_printer.css" 
+      rel="stylesheet"
+      )
+    title Admin manage printers
+    link(
+      rel="stylesheet" 
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    )
+  body
+    .banner
+      .navbar
+        img(
+          alt="" 
+          src="/image/LogoSPSS-removebg.png"
+          )
+        ul
+          li
+            a(href="/") TRANG CHỦ
+          li
+            a(href="/admin/printers/index") CÁC MÁY IN
+          li
+            a(href="/admin/add_users/index") QUẢN LÝ NGƯỜI DÙNG
+          li
+            a(href="/admin/setup") SETUP
+          li#account
+            a(href="#")
+              i.bx.bx-user
+      .container
+        .header
+          .nav
+        .content
+          .cards
+            .content-2
+              .print-history
+                .title
+                  h2 Lịch sử in ấn
+                  a.btn(href="#") Xem tất cả
+                table
+                  tbody
+                    tr
+                      th Trạng thái
+                      th Ngày in
+                      th Nơi thực hiện
+                  if printer_history
+                    each history in printer_history
+                      tr
+                        td #{history.Status ? history.Status : 'Không có dữ liệu'}
+                        td #{history.datePrinting ? history.datePrinting : 'Không có dữ liệu'}
+                        td #{history.Location ? history.Location : 'Không có dữ liệu'}
+                  else
+                    tr
+                      td(colspan="3") Không có lịch sử máy in
+              .new-students
+                .title
+                  h2 Printers
+                  a.btn(href="/admin/add_printers/index#") Thêm máy in
+                table
+                  tbody
+                    tr
+                      th Printer
+                      th Vị trí
+                      th Lựa chọn
+                    each printer in printers   
+                      tr
+                        td
+                          a(href='#' class="printerHistory-btn" data-printer-name = printer.Name)
+                            img(                              
+                              alt="" 
+                              src="/image/printer.png"
+                              )
+                        td #{printer.Location}
+                        td 
+                          select.status_option(data-printer_name = printer.Name)
+                            option(value = "On" selected=printer.status === "On") On
+                            option(value = "Off" selected=printer.status === "Off") Off
+                        td
+                          a(href="#" class = "delete-btn" data-printer-name = printer.Name )
+                            img(
+                              alt="" 
+                              src="/image/delete-svgrepo-com.svg"
+                              )
+    script(src = "/js/admin_manage_printer.js")
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    footer.footer
+      .footer-logo
+        img(
+          alt="Logo" 
+          src="/image/01_logobachkhoatoi.png"
+          )
+      .footer-contact
+        p Cơ sở Lý Thường Kiệt: 268 Lý Thường Kiệt, Phường 14, Quận 10, TP. HCM
+        p
+          | Cơ sở Dĩ An: Khu phố Tân Lập, Phường Đông Hòa, TP. Dĩ An, Tỉnh Bình
+          |   Dương
+        p Email: contact@website.com
+        p Điện thoại: +84 123 456 789
+      .footer-copyright
+        p © Bản quyền thuộc Trường Đại học Bách khoa - ĐHQG-HCM
